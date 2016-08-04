@@ -1,25 +1,27 @@
 $(document).ready(function(){
 
 
-	var theCountry = ['Canada', 'United States', 'Mexico', 'Guatemala'];
+	var theCountry = ['Canada', 'United States', 'Mexico', 'Guatemala', 'Belize', 'Cuba', 
+    'Honduras', 'El Salvador', 'Nicaraguas', 'Costa Rica', 'Panama', 'Jamaica','Haiti',
+    'Dominican Republic', 'Puerto Rico'];
+
     var api = 'http://api.giphy.com/v1/gifs/search?q=';
-    var limit = '&limit=10&q=';	
     var apiKey = '&api_key=dc6zaTOxFJmzC';
-    var theInput = value
-    var urlCombo = api + apiKey + limit;
-
-    var countries = $(this).attr('input');
-	
-		
-		
-      	//This is the input value that allows the user to types anything he(she) whats to 
-      	//search in giphy.
-
-      	var value = $('input').val().trim();
-	 		value = value.trim().replace(/\s+/g, '+');
-
-       //.ajax links all the API URL. 
-        $.ajax({url: api + apiKey + limit, 
+    var limit = '&limit=10&q=';	
+    var urlCombo = api + apiKey + limit + valueInput;
+    var valueInput = $('#gyphy-input').val().trim();
+      	
+        $('.theCountry').on('click', function(){
+	 	     theCountry.push(valueInput);
+             valueInput = select(theCountry);
+    });
+        function alertName(){
+        var countryName = $(this).data('name');
+        alert(countryName);
+    }
+         $('.rightIn').empty();
+       
+        $.ajax({url: urlCombo , 
         	method: 'GET'
         })
           .done(function(response) {
@@ -29,34 +31,26 @@ $(document).ready(function(){
                 for (var i = 0; i < results.length; i++) {
     		};
     		$('.theCountry').empty();
+                // console.log(value);
     			console.log(response);
+                console.log(valueInput);
     		 	console.log(results);
-    		 	$('.images').append(results);
-    		 	$('.images').append(response);
-
+    		 	$('.images').append(valueInput);
+    		 	$('.images').html(response.urlCombo);
     	});
     	//This function adds the buttons that are associated with the var theCountry.
-    		$('#theButton').html(function(){
-    			
+    		$('#theButton').html
     			for (var x = 0; x < theCountry.length; x++){
-			    		var b = $('<button>').append(theCountry).css('margin', '10px');
-			    		b.addClass('btn btn-primary country')
-			    		b.attr('data-country', theCountry[x]);
+			    		var b = $('<button>').append(theCountry).css('margin', '5px');
+			    		b.addClass('btn btn-info country')
+			    		b.attr('data-name', theCountry[x]);
 			    		b.text(theCountry[x]);
 			    		$('.rightIn').append(b);
 	    	};
-	    	// $('.images').append();
-	    	// $('.images').append(urlCombo);
-    		console.log(urlCombo);
-            console.log(theCountry);
-            return false;
-           
-
          
-		
-	
- });
-
+            $(document).on('click', '.countryName', alertName);
+    		console.log(urlCombo);
+            return false;
 });
 
 
