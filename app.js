@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	
-    var api = 'http://api.giphy.com/v1/gifs/search?q=';
+    var api = 'https://api.giphy.com/v1/gifs/search?q=';
     var apiKey = '&api_key=dc6zaTOxFJmzC';
 
     var theCountry = ['Canada', 'United States', 'Mexico', 'Guatemala', 'Belize', 'Cuba', 
@@ -13,17 +13,18 @@ $(document).ready(function(){
     var urlCombo = api + valueInput + apiKey + limit;
     
     //function=====  
-        $('button').on('Click',function(){
+       $(document.body).on('click', '.country', function() {
             var countryName = $(this).data("info");
-            urlCombo();
-    });
+            
+    
         $('.rightIn').empty();
        
-        $.ajax({url: urlCombo, 
+        $.ajax({url: urlCombo + countryName, 
 
         	method: 'GET'
         
         })
+
         //Function that creates a div and puts the Image.  
         .done(function(response) {
 	       
@@ -36,9 +37,9 @@ $(document).ready(function(){
 
                 var theImages = $('<img>')
                     .addClass('bandimg')
-                    .attr('src', theGif[j].images.fixed_height_still.url)
-                    .attr('data-still', theGif[j].images.fixed_height_still.url)
-                    .attr('data-animate', theGif[j].images.fixed_height.url)
+                    .attr('src', theGif[i].images.fixed_height_still.url)
+                    .attr('data-still', theGif[i].images.fixed_height_still.url)
+                    .attr('data-animate', theGif[i].images.fixed_height.url)
                     .attr('data-state', 'still');
 
                 newDivGif.prepend(rating);
@@ -49,7 +50,7 @@ $(document).ready(function(){
             console.log(urlCombo);
     		console.log(response);
             console.log(valueInput);
-    		
+    		  });
            
     	});
     	//This function "adds" the buttons 
