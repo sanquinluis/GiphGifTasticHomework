@@ -16,13 +16,10 @@ $(document).ready(function(){
        $(document.body).on('click', '.country', function() {
             var countryName = $(this).data("info");
             
-    
-        $('.rightIn').empty();
-       
+   
         $.ajax({url: urlCombo + countryName, 
 
         	method: 'GET'
-        
         })
 
         //Function that creates a div and puts the Image.  
@@ -46,12 +43,13 @@ $(document).ready(function(){
                 newDivGif.prepend(theImages);
 
     		};
+         
             
             console.log(urlCombo);
     		console.log(response);
             console.log(valueInput);
-    		  });
-           
+    		
+        });   
     	});
     	//This function "adds" the buttons 
     	function renderButtons(){ 
