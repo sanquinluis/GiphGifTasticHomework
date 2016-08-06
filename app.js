@@ -33,8 +33,8 @@ $(document).ready(function(){
 
                 var rating = $('<p>').text("Rating: " + theGif[i].rating);
 
-                var theImages = $('<img>')
-                    .addClass('bandimg')
+                var theImages = $('<img>').css({'margin':'5px','width': '200px', 'height':'200px'})
+                    .addClass('gifyIm')
                     .attr('src', theGif[i].images.fixed_height_still.url)
                     .attr('data-still', theGif[i].images.fixed_height_still.url)
                     .attr('data-animate', theGif[i].images.fixed_height.url)
