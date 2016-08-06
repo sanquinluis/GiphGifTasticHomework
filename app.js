@@ -28,6 +28,7 @@ $(document).ready(function(){
             //
             var theGif = response.data;
             for (var i = 0; i < theGif.length; i++) {
+
                 var newDivGif = $('<div class="gifImg">');
 
                 var rating = $('<p>').text("Rating: " + theGif[i].rating);
@@ -41,6 +42,8 @@ $(document).ready(function(){
 
                 newDivGif.prepend(rating);
                 newDivGif.prepend(theImages);
+                $('.hereTheyare').append(theImages);
+
 
     		};
          
