@@ -12,10 +12,10 @@ $(document).ready(function(){
     var valueInput = $('#gyphy-input').val().trim();
     var urlCombo = api + valueInput + apiKey + limit;
     
-    //function=====  
+    //function that connects  
        $(document.body).on('click', '.country', function() {
-            var countryName = $(this).data("info");
-            
+            var countryName = $(this).attr('name');
+            $(".hereTheyare").empty();
    
         $.ajax({url: urlCombo + countryName, 
 
@@ -34,7 +34,7 @@ $(document).ready(function(){
                 var rating = $('<p>').text("Rating: " + theGif[i].rating);
 
                 var theImages = $('<img>').css({'margin':'5px','width': '200px', 'height':'200px'})
-                    .addClass('gifyIm')
+                    .addClass('gifyIm animate still')
                     .attr('src', theGif[i].images.fixed_height_still.url)
                     .attr('data-still', theGif[i].images.fixed_height_still.url)
                     .attr('data-animate', theGif[i].images.fixed_height.url)
@@ -43,16 +43,22 @@ $(document).ready(function(){
                 newDivGif.prepend(rating);
                 newDivGif.prepend(theImages);
                 $('.hereTheyare').append(theImages);
-
-
     		};
-         
-            
+                console.log(response);
+        });
+            //animating the gif??
+            $('.gifyIm').on('click', function(){
+                var state = $(this).attr('data-state'); 
+                if (state == 'still') {
+                            $(this).attr('src', $(this).data('animate'));
+                            $(this).attr('data-state', 'animate');
+            }   else {
+                            $(this).attr('src', $(this).data('still'));
+                            $(this).attr('data-state', 'still');
+                    }   
+            }); 
             console.log(urlCombo);
-    		console.log(response);
             console.log(valueInput);
-    		
-        });   
     	});
     	//This function "adds" the buttons 
     	function renderButtons(){ 
@@ -66,11 +72,13 @@ $(document).ready(function(){
         // This handels the event when click
         $('#theButton').on('click', function(){
             //adds the new country
-            theCountry.push($("#gyphy-input").val());
+            var countryWow = $("#gyphy-input").val().trim();
+            theCountry.push(countryWow);
             renderButtons()
         $("#gyphy-input").val("");
             return false;
     })
+
             renderButtons();
             
 });
